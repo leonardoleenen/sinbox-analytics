@@ -6,7 +6,7 @@ services:
     ports:
       # It's better to use random port binding for 4000/3000 ports
       # without it you will not able to start multiple projects inside docker
-      - 4000:4000 # Cube.js API and Developer Playground
+      - 14000:14000 # Cube.js API and Developer Playground
       - 3000:3000 # Dashboard app, if created
     env_file: .env
     volumes:
@@ -29,5 +29,18 @@ services:
     restart: always
     ports:
       - 6379:6379
+  mongo:
+    image: mongo:4.2.5
+    restart: always
+    volumes:
+      - datadb:/data/db
+    logging:
+      driver: json-file
+      options:
+        max-size: "50m"
+        max-file: "3"
+    ports:
+      - 27017:27017
 volumes:
   sinbox:
+  datadb:
